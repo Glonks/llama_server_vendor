@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>llama_server_vendor</name>
+  <version>0.1.0</version>
+  <description>Vendor package for llama.cpp llama-server (CUDA on Jetson Orin/Thor and x86 GPUs).</description>
+  <maintainer email="kkhanna.rdl@gmail.com">glonks</maintainer>
+  <license>MIT</license>
+
+  <url type="website">https://github.com/ggml-org/llama.cpp</url>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <depend>libssl-dev</depend>
+
+  <exec_depend>launch</exec_depend>
+  <exec_depend>launch_ros</exec_depend>
+
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

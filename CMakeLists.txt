@@ -138,14 +138,13 @@ else()
   set(_llama_source URL "${CMAKE_CURRENT_SOURCE_DIR}/vendor/llama.cpp-${LLAMA_CPP_TAG}.tar.gz")
 endif()
 
-# Build only llama-server. $(MAKE) keeps colcon's parallel jobs
-if(CMAKE_GENERATOR MATCHES "Make")
-  set(_build_command $(MAKE) llama-server)
-else()
-  set(_build_command ${CMAKE_COMMAND} --build <BINARY_DIR> --target llama-server)
-endif()
+# Parallel jobs. nvcc uses much memory, so the default is low
+set(LLAMA_SERVER_VENDOR_JOBS 4 CACHE STRING "Parallel jobs for the llama.cpp build")
 
-message(STATUS "llama_server_vendor: llama.cpp ${LLAMA_CPP_TAG} CUDA=${_use_cuda} archs='${_cuda_archs}'")
+# Build only llama-server
+set(_build_command ${CMAKE_COMMAND} --build <BINARY_DIR> --target llama-server --parallel ${LLAMA_SERVER_VENDOR_JOBS})
+
+message(STATUS "llama_server_vendor: llama.cpp ${LLAMA_CPP_TAG} CUDA=${_use_cuda} archs='${_cuda_archs}' jobs=${LLAMA_SERVER_VENDOR_JOBS}")
 
 ExternalProject_Add(llama_cpp
   ${_llama_source}
